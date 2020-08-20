@@ -1,0 +1,5 @@
+
+/* Buttons on table for Update, Delete  */
+tbody > tr > td:last-child {
+	display: inline-flex;
+}
