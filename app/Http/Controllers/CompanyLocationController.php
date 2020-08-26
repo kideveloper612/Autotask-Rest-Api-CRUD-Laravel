@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Routing\Redirector;
 use Illuminate\View\View;
 
 class CompanyLocationController extends Controller
@@ -181,7 +183,7 @@ class CompanyLocationController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return Response
+     * @return Application|RedirectResponse|Response|Redirector
      */
     public function store(Request $request)
     {
@@ -212,8 +214,10 @@ class CompanyLocationController extends Controller
             )
         );
 
-        $this->CURL_Request($this->BASE_URL, $locationData, 'POST');
-        return $this->index();
+        $parentURL = "$this->COMPANY_URL/{$request->get('CompanyID')}/Locations";
+
+        $this->CURL_Request($parentURL, $locationData, 'POST');
+        return redirect('location');
     }
 
     /**
@@ -251,24 +255,54 @@ class CompanyLocationController extends Controller
      *
      * @param Request $request
      * @param  int  $id
-     * @return Response
+     * @return Application|RedirectResponse|Response|Redirector
      */
     public function update(Request $request, $id)
     {
         //Update CompanyLocation
-        $data = $request->all();
-        return $this->index();
+        $updateData = json_encode(
+            array(
+                "Id" => $request->get('Id'),
+                "Address1" => $request->get('Address1'),
+                "Address2" => $request->get('Address2'),
+                "AlternatePhone1" => $request->get('AlternatePhone1'),
+                "AlternatePhone2" => $request->get('AlternatePhone2'),
+                "City" => $request->get('City'),
+                "CompanyID" => $request->get('CompanyID'),
+                "CountryID" => $request->get('CountryID'),
+                "Description" => $request->get('Description'),
+                "Fax" => $request->get('Fax'),
+                "Id" => $request->get('Id'),
+                "IsActive" => $request->get('IsActive'),
+                "IsPrimary" => $request->get('IsPrimary'),
+                "IsTaxExempt" => $request->get('IsTaxExempt'),
+                "Name" => $request->get('Name'),
+                "OverrideCompanyTaxSettings" => $request->get('OverrideCompanyTaxSettings'),
+                "Phone" => $request->get('Phone'),
+                "PostalCode" => $request->get('PostalCode'),
+                "RoundtripDistance" => $request->get('RoundtripDistance'),
+                "State" => $request->get('State'),
+                "TaxRegionID" => $request->get('TaxRegionID')
+            )
+        );
+
+        $updateURL = "$this->COMPANY_URL/{$request->get('CompanyID')}/Locations";
+        $this->CURL_Request($updateURL, $updateData, 'PUT');
+        return redirect('location/update');
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return void
+     * @return Redirector
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         //Delete CompanyLocation
-
+        $companyID = $request->get('CompanyID');
+        $deleteURL = "$this->COMPANY_URL$companyID/Locations/$id";
+        $this->CURL_Request($deleteURL, "", 'DELETE');
+        return redirect('location/delete');
     }
 }

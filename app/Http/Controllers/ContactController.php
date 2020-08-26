@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
@@ -179,67 +180,54 @@ class ContactController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return Response
+     * @return RedirectResponse
      */
     public function store(Request $request)
     {
         //Store new Contact to api
         $contactData = json_encode(
             array(
-                "id" => '0',
-                "additionalAddressInformation" => $request->get('additionalAddressInformation'),
-                "addressLine" => $request->get('addressLine'),
-                "addressLine1" => $request->get('addressLine1'),
-                "alternatePhone" => $request->get('alternatePhone'),
-                "city" => $request->get('city'),
+                "Id" => '0',
+                "AdditionalAddressInformation" => $request->get('AdditionalAddressInformation'),
+                "AddressLine" => $request->get('AddressLine'),
+                "AddressLine1" => $request->get('AddressLine1'),
+                "AlternatePhone" => $request->get('AlternatePhone'),
+                "City" => $request->get('City'),
                 "CompanyID" => $request->get('CompanyID'),
-                "companyLocationID" => $request->get('companyLocationID'),
-                "countryID" => $request->get('countryID'),
-                "emailAddress" => $request->get('emailAddress'),
-                "emailAddress2" => $request->get('emailAddress2'),
-                "emailAddress3" => $request->get('emailAddress3'),
-                "extension" => $request->get('extension'),
-                "externalID" => $request->get('externalID'),
-                "facebookUrl" => $request->get('facebookUrl'),
-                "faxNumber" => $request->get('faxNumber'),
-                "firstName" => $request->get('firstName'),
-                "isActive" => $request->get('isActive'),
-                "isOptedOutFromBulkEmail" => $request->get('isOptedOutFromBulkEmail'),
-                "lastName" => $request->get('lastName'),
-                "linkedInUrl" => $request->get('linkedInUrl'),
-                "middleInitial" => $request->get('middleInitial'),
-                "mobilePhone" => $request->get('mobilePhone'),
-                "namePrefix" => $request->get('namePrefix'),
-                "nameSuffix" => $request->get('nameSuffix'),
-                "note" => $request->get('note'),
-                "receivesEmailNotifications" => $request->get('receivesEmailNotifications'),
-                "phone" => $request->get('phone'),
-                "primaryContact" => $request->get('primaryContact'),
-                "roomNumber" => $request->get('roomNumber'),
-                "state" => $request->get('state'),
-                "title" => $request->get('title'),
-                "twitterUrl" => $request->get('twitterUrl'),
-                "zipCode" => $request->get('zipCode'),
-                "userDefinedFields" => $request->get('userDefinedFields')
+                "CompanyLocationID" => $request->get('CompanyLocationID'),
+                "CountryID" => $request->get('CountryID'),
+                "EmailAddress" => $request->get('EmailAddress'),
+                "EmailAddress2" => $request->get('EmailAddress2'),
+                "EmailAddress3" => $request->get('EmailAddress3'),
+                "Extension" => $request->get('Extension'),
+                "ExternalID" => $request->get('ExternalID'),
+                "FacebookUrl" => $request->get('FacebookUrl'),
+                "FaxNumber" => $request->get('FaxNumber'),
+                "FirstName" => $request->get('FirstName'),
+                "IsActive" => $request->get('IsActive'),
+                "IsOptedOutFromBulkEmail" => $request->get('IsOptedOutFromBulkEmail'),
+                "LastName" => $request->get('LastName'),
+                "LinkedInUrl" => $request->get('LinkedInUrl'),
+                "MiddleInitial" => $request->get('MiddleInitial'),
+                "MobilePhone" => $request->get('MobilePhone'),
+                "NamePrefix" => $request->get('NamePrefix'),
+                "NameSuffix" => $request->get('NameSuffix'),
+                "Note" => $request->get('Note'),
+                "ReceivesEmailNotifications" => $request->get('ReceivesEmailNotifications'),
+                "Phone" => $request->get('Phone'),
+                "PrimaryContact" => $request->get('PrimaryContact'),
+                "RoomNumber" => $request->get('RoomNumber'),
+                "State" => $request->get('State'),
+                "Title" => $request->get('Title'),
+                "TwitterUrl" => $request->get('TwitterUrl'),
+                "ZipCode" => $request->get('ZipCode'),
+                "UserDefinedFields" => $request->get('UserDefinedFields')
             )
         );
 
-        $contactData = json_encode(
-            array('restModelInput' =>
-                array(
-                    "CompanyID" => $request->get('CompanyID'),
-                    "FirstName" => $request->get('FirstName'),
-                    "Id" => $request->get('Id'),
-                    "IsActive" => $request->get('IsActive'),
-                    "LastName" => $request->get('LastName'),
-                )
-            )
-        );
-
-        dd($contactData);
-
-        $this->CURL_Request($this->BASE_URL, $contactData, 'POST');
-        return $this->index();
+        $parentURL = "$this->COMPANY_URL/{$request->get('CompanyID')}/Contacts";
+        $this->CURL_Request($parentURL, $contactData, 'POST');
+        return redirect('contact');
     }
 
     /**
@@ -282,19 +270,64 @@ class ContactController extends Controller
     public function update(Request $request, $id)
     {
         //Update Contact
-        $updateData = $request->all();
-        return $this->index();
+        $updateData = json_encode(
+            array(
+                "Id" => $request->get('Id'),
+                "AdditionalAddressInformation" => $request->get('AdditionalAddressInformation'),
+                "AddressLine" => $request->get('AddressLine'),
+                "AddressLine1" => $request->get('AddressLine1'),
+                "AlternatePhone" => $request->get('AlternatePhone'),
+                "City" => $request->get('City'),
+                "CompanyID" => $request->get('CompanyID'),
+                "CompanyLocationID" => $request->get('CompanyLocationID'),
+                "CountryID" => $request->get('CountryID'),
+                "EmailAddress" => $request->get('EmailAddress'),
+                "EmailAddress2" => $request->get('EmailAddress2'),
+                "EmailAddress3" => $request->get('EmailAddress3'),
+                "Extension" => $request->get('Extension'),
+                "ExternalID" => $request->get('ExternalID'),
+                "FacebookUrl" => $request->get('FacebookUrl'),
+                "FaxNumber" => $request->get('FaxNumber'),
+                "FirstName" => $request->get('FirstName'),
+                "IsActive" => $request->get('IsActive'),
+                "IsOptedOutFromBulkEmail" => $request->get('IsOptedOutFromBulkEmail'),
+                "LastName" => $request->get('LastName'),
+                "LinkedInUrl" => $request->get('LinkedInUrl'),
+                "MiddleInitial" => $request->get('MiddleInitial'),
+                "MobilePhone" => $request->get('MobilePhone'),
+                "NamePrefix" => $request->get('NamePrefix'),
+                "NameSuffix" => $request->get('NameSuffix'),
+                "Note" => $request->get('Note'),
+                "ReceivesEmailNotifications" => $request->get('ReceivesEmailNotifications'),
+                "Phone" => $request->get('Phone'),
+                "PrimaryContact" => $request->get('PrimaryContact'),
+                "RoomNumber" => $request->get('RoomNumber'),
+                "State" => $request->get('State'),
+                "Title" => $request->get('Title'),
+                "TwitterUrl" => $request->get('TwitterUrl'),
+                "ZipCode" => $request->get('ZipCode'),
+                "UserDefinedFields" => $request->get('UserDefinedFields')
+            )
+        );
+
+        $updateURL = "$this->COMPANY_URL{$request->get('CompanyID')}/Contacts";
+        $this->CURL_Request($updateURL, $updateData, 'PUT');
+        return redirect('contact/update');
     }
 
     /**
      * Remove the specified resource from storage.
      *
+     * @param Request $request
      * @param int $id
      * @return void
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         //Delete Contact
-
+        $companyID = $request->get('CompanyID');
+        $deleteURL = "$this->COMPANY_URL$companyID/Contacts/$id";
+        $this->CURL_Request($deleteURL, "", 'DELETE');
+        return redirect('contact/delete');
     }
 }

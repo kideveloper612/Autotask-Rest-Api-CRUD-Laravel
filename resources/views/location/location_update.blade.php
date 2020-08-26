@@ -37,7 +37,10 @@
 			            	<a href="/location/{{$item->id}}/edit">
 			            		<button class="btn btn-secondary">Edit</button>
 			            	</a>
-			            	<form action="/location/{{$item->id}}" method="DELETE" class="ml-2">
+			            	<form action="/location/{{$item->id}}" method="POST" class="ml-2">
+                                @csrf
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="CompanyID" value="{{$item->companyID}}">
 			            		<button class="btn btn-danger">Delete</button>
 			            	</form>
 			            </td>
@@ -154,8 +157,8 @@
 						<div class="col-sm-12">
 							<select class="form-control" value="{{$editRecord->isActive}}" id="IsActive" name="IsActive">
 								<option value=""></option>
-								<option value="True" title="Yes">Yes</option>
-								<option value="False" title="No">No</option>
+								<option value="1" title="Yes">Yes</option>
+								<option value="0" title="No">No</option>
 							</select>
 						</div>
 					</div>

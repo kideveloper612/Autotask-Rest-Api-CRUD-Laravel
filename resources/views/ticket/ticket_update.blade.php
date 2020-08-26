@@ -163,11 +163,7 @@
 					<div class="form-group">
 						<label class="control-label col-sm-10" for="CompanyID">CompanyID<span>*</span></label>
 						<div class="col-sm-12">
-                            <select class="form-control" value="{{$editRecord->companyID}}" id="CompanyID" name="CompanyID" required>
-                                @foreach($companyIdData as $item)
-                                    <option value="{{$item->id}}">{{$item->companyName}}</option>
-                                @endforeach
-                            </select>
+                            <input class="form-control" value="{{$editRecord->companyID}}" id="CompanyID" name="CompanyID" required readonly>
 						</div>
 					</div>
 				</div>

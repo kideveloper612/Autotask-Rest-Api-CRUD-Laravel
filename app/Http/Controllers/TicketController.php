@@ -220,13 +220,13 @@ class TicketController extends Controller
                 "TicketNumber" => $request->get('TicketNumber'),
                 "TicketType" => $request->get('TicketType'),
                 "Title" => $request->get('Title'),
-                "Id" => $request->get('Id'),
+                "Id" => '0',
                 "Status" => $request->get('Status'),
             )
         );
 
         $this->CURL_Request($this->BASE_URL, $ticketData, 'POST');
-        return $this->index();
+        return redirect('ticket');
     }
 
     /**
@@ -304,9 +304,10 @@ class TicketController extends Controller
                 "Status" => $request->get('Status'),
             )
         );
+
         $this->CURL_Request($this->BASE_URL, $ticketData, 'PUT');
 
-        return $this->show();
+        return redirect('ticket/update');
     }
 
     /**

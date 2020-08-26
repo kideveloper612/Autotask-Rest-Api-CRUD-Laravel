@@ -118,6 +118,7 @@
 						<label class="control-label col-sm-10" for="CompanyID">CompanyID<span>*</span></label>
 						<div class="col-sm-12">
                             <select class="form-control" id="CompanyID" name="CompanyID" required>
+                                <option value=""></option>
                                 @foreach($companyData as $item)
                                     <option value="{{$item[0]}}">{{$item[1]}}</option>
                                 @endforeach

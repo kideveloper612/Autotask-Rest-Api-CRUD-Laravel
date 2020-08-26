@@ -248,7 +248,7 @@ class CompanyController extends Controller
         );
 
         $result = $this->CURL_Request($this->BASE_URL, $companyData, 'POST');
-        return $this->index();
+        return redirect('company');
     }
 
     /**

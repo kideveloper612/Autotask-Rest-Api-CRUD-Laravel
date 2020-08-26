@@ -81,7 +81,8 @@
 					<div class="form-group">
 						<label class="control-label col-sm-10" for="CompanyID">CompanyID<span>*</span></label>
 						<div class="col-sm-12">
-                            <select class="form-control" id="CompanyID" name="CompanyID">
+                            <select class="form-control" id="CompanyID" name="CompanyID" required>
+                                <option value=""></option>
                                 @foreach($companyItems as $item)
                                     <option value="{{$item[0]}}">{{$item[1]}}</option>
                                 @endforeach
@@ -468,8 +469,8 @@
 						<div class="col-sm-12">
                             <select class="form-control" id="IsActive" name="IsActive" required>
                                 <option value=""></option>
-                                <option value="True" title="Active">Active</option>
-                                <option value="False" title="inActive">inActive</option>
+                                <option value="1" title="Active">Active</option>
+                                <option value="0" title="inActive">inActive</option>
                             </select>
 						</div>
 					</div>

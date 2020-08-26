@@ -15,3 +15,8 @@ tbody > tr > td.ud {
 .page-content label > span {
     color: red;
 }
+
+/* Sidebar */
+#sidebar a.img.logo {
+    background-image: url('/assets/images/logo.png');
+}
