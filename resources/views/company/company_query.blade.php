@@ -15,104 +15,20 @@
 			<div class="row">
 				<div class="col-3">
 					<div class="form-group">
-						<label class="control-label" for="companyName">Company (Name/Number)</label>
-					  	<input type="text" class="form-control" id="companyName" name="companyName" placeholder="Enter companyName">
+						<label class="control-label" for="CompanyName">Company(Name/Number)</label>
+					  	<input type="text" class="form-control" id="CompanyName" name="CompanyName" maxlength="50" placeholder="Enter CompanyName Or CompanyNumber">
 					</div>
 				</div>
 				<div class="col-3">
 					<div class="form-group">
-						<label class="control-label" for="postCode">Post Code</label>
-					  	<input type="text" class="form-control" id="postCode" name="postCode" placeholder="Enter Post Code">
+						<label class="control-label" for="PostalCode">PostalCode</label>
+					  	<input type="text" class="form-control" id="PostalCode" name="PostalCode" maxlength="10" placeholder="Enter PostalCode">
 					</div>
 				</div>
 				<div class="col-3">
 					<div class="form-group">
-						<label class="control-label" for="accountManager">Account Manager</label>
-					  	<input type="text" class="form-control" id="accountManager" name="accountManager" placeholder="Type to search">
-					</div>
-				</div>
-				<div class="col-3">
-					<div class="form-group">
-						<label class="control-label" for="territory">Territory</label>
-						<select class="form-control" multiple="" id="territory" name="territory">
-							<option value="0" title="Does Not Contain Data">Does Not Contain Data</option>
-							<option value="29683452" title="East">East</option>
-							<option value="29682778" title="North">North</option>
-							<option value="29683454" title="South">South</option>
-							<option value="29683453" title="West">West</option>
-						</select>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-3">
-					<div class="form-group">
-						<label class="control-label" for="Phone">Phone</label>
-					  	<input type="text" class="form-control" id="phone" name="phone" placeholder="Enter Phone">
-					</div>
-				</div>
-				<div class="col-3">
-					<div class="form-group">
-						<label class="control-label" for="companyType">Company Type</label>
-						<select class="form-control" id="companyType" name="companyType">
-							<option value=""></option>
-							<option value="1" title="Customer">Customer</option>
-							<option value="2" title="Lead">Lead</option>
-							<option value="3" title="Prospect">Prospect</option>
-							<option value="4" title="Dead">Dead</option>
-							<option value="6" title="Cancelation">Cancelation</option>
-							<option value="7" title="Vendor">Vendor</option>
-							<option value="8" title="Partner">Partner</option>
-						</select>
-					</div>
-				</div>
-				<div class="col-3">
-					<div class="form-group">
-						<label class="control-label" for="region">Region</label>
-						<select class="form-control" id="region" name="region">
-							<option value=""></option>
-							<option value="29682777" title="North America">North America</option>
-						</select>
-					</div>
-				</div>
-				<div class="col-3">
-					<div class="form-group">
-						<label class="control-label" for="totalOpportunityAmountMore">Total Opportunity Amount >=</label>
-						<input type="text" class="form-control" maxlength="12" id="totalOpportunityAmountMore" name="totalOpportunityAmountMore" placeholder="Enter Total Opportunity Amount">
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-3">
-					<div class="form-group">
-						<label class="control-label" for="phoneNumber">Phone (numbers only)</label>
-					  	<input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Enter phoneNumber">
-					</div>
-				</div>
-				<div class="col-3">
-					<div class="form-group">
-						<label class="control-label" for="classification">Classification</label>
-						<select class="form-control" id="classification" name="classification">
-							<option value=""></option>
-							<option value="16" title="Bronze Managed Service">Bronze Managed Service</option>
-							<option value="17" title="Silver Managed Service">Silver Managed Service</option>
-							<option value="15" title="Gold Managed Service">Gold Managed Service</option>
-							<option value="18" title="Platinum Managed Service">Platinum Managed Service</option>
-							<option value="19" title="Hosted Service">Hosted Service</option>
-							<option value="5" title="Block Hour Client">Block Hour Client</option>
-							<option value="7" title="Target">Target</option>
-							<option value="9" title="Canceled">Canceled</option>
-							<option value="10" title="Delinquent">Delinquent</option>
-							<option value="12" title="T&amp;M">T&amp;M</option>
-							<option value="13" title="Residential">Residential</option>
-							<option value="14" title="Jeopardy Company">Jeopardy Company</option>
-						</select>
-					</div>
-				</div>
-				<div class="col-3">
-					<div class="form-group">
-						<label class="control-label" for="marketSegment">Market Segment</label>
-						<select class="form-control" id="marketSegment" name="marketSegment">
+						<label class="control-label" for="MarketSegmentID">Market Segment</label>
+						<select class="form-control" id="MarketSegmentID" name="MarketSegmentID">
 							<option value=""></option>
 							<option value="29683399" title="Accounting">Accounting</option>
 							<option value="29683400" title="Construction">Construction</option>
@@ -135,16 +51,72 @@
 				</div>
 				<div class="col-3">
 					<div class="form-group">
-						<label class="control-label" for="totalOpportunityAmountLess">Total Opportunity Amount <=</label>
-					  	<input type="text" class="form-control" id="totalOpportunityAmountLess" placeholder="Enter Total Opportunity Amount">
+						<label class="control-label" for="TerritoryID">Territory</label>
+						<select class="form-control" id="TerritoryID" name="TerritoryID">
+                            <option value=""></option>
+							<option value="0" title="Does Not Contain Data">Does Not Contain Data</option>
+							<option value="29683452" title="East">East</option>
+							<option value="29682778" title="North">North</option>
+							<option value="29683454" title="South">South</option>
+							<option value="29683453" title="West">West</option>
+						</select>
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-3">
 					<div class="form-group">
-						<label class="control-label" for="country">Country</label>
-						<select class="form-control" id="country" name="country">
+						<label class="control-label" for="Phone">Phone</label>
+					  	<input type="text" class="form-control" id="Phone" name="Phone" maxlength="25" placeholder="Enter Phone">
+					</div>
+				</div>
+				<div class="col-3">
+					<div class="form-group">
+						<label class="control-label" for="CompanyType">CompanyType</label>
+						<select class="form-control" id="CompanyType" name="CompanyType">
+							<option value=""></option>
+							<option value="1" title="Customer">Customer</option>
+							<option value="2" title="Lead">Lead</option>
+							<option value="3" title="Prospect">Prospect</option>
+							<option value="4" title="Dead">Dead</option>
+							<option value="6" title="Cancelation">Cancelation</option>
+							<option value="7" title="Vendor">Vendor</option>
+							<option value="8" title="Partner">Partner</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-3">
+					<div class="form-group">
+						<label class="control-label" for="TaxRegionID">TaxRegionID</label>
+						<input type="number" class="form-control" id="TaxRegionID" name="TaxRegionID" placeholder="Enter TaxRegionID">
+					</div>
+				</div>
+				<div class="col-3">
+					<div class="form-group">
+						<label class="control-label" for="Classification">Classification</label>
+						<select class="form-control" id="Classification" name="Classification">
+							<option value=""></option>
+							<option value="16" title="Bronze Managed Service">Bronze Managed Service</option>
+							<option value="17" title="Silver Managed Service">Silver Managed Service</option>
+							<option value="15" title="Gold Managed Service">Gold Managed Service</option>
+							<option value="18" title="Platinum Managed Service">Platinum Managed Service</option>
+							<option value="19" title="Hosted Service">Hosted Service</option>
+							<option value="5" title="Block Hour Client">Block Hour Client</option>
+							<option value="7" title="Target">Target</option>
+							<option value="9" title="Canceled">Canceled</option>
+							<option value="10" title="Delinquent">Delinquent</option>
+							<option value="12" title="T&amp;M">T&amp;M</option>
+							<option value="13" title="Residential">Residential</option>
+							<option value="14" title="Jeopardy Company">Jeopardy Company</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-3">
+					<div class="form-group">
+						<label class="control-label" for="CountryID">Country</label>
+						<select class="form-control" id="CountryID" name="CountryID">
 						    <option value=""></option>
 						    <option value="2" title="Afghanistan">Afghanistan</option>
 						    <option value="3" title="Åland Islands">Åland Islands</option>
@@ -402,48 +374,50 @@
 				</div>
 				<div class="col-3">
 					<div class="form-group">
-						<label class="control-label" for="lastActivityMore">Last Activity >=</label>
-						<select class="form-control" id="lastActivityMore" name="lastActivityMore">
+						<label class="control-label" for="LastActivityDateMore">LastActivityDate >=</label>
+						<input type="text" class="datepicker form-control" id="LastActivityDateMore" name="LastActivityDateMore" data-provide="datepicker" placeholder="Enter LastActivityDate">
+					</div>
+				</div>
+				<div class="col-3">
+					<div class="form-group">
+						<label class="control-label" for="Competitor">Competitor</label>
+					  	<input type="number" class="form-control" id="Competitor" name="Competitor" placeholder="Enter Competitor">
+					</div>
+				</div>
+				<div class="col-3">
+					<div class="form-group">
+						<label class="control-label" for="active">isActive</label>
+						<select class="form-control" id="active" name="active">
 							<option value=""></option>
+							<option value="True" title="Yes">Yes</option>
+							<option value="False" title="No">No</option>
 						</select>
-					</div>
-				</div>
-				<div class="col-3">
-					<div class="form-group">
-						<label class="control-label" for="competitor">Competitor</label>
-					  	<input type="text" class="form-control" id="competitor" name="competitor" placeholder="Enter Competitor">
-					</div>
-				</div>
-				<div class="col-3">
-					<div class="form-group">
-						<label class="control-label" for="active">Active</label>
-					  	<input type="text" class="form-control" id="active" name="active" placeholder="Enter Active">
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-3">
 					<div class="form-group">
-						<label class="control-label" for="city">City</label>
-					  	<input type="text" class="form-control" id="city" name="city" placeholder="Enter City">
+						<label class="control-label" for="City">City</label>
+					  	<input type="text" class="form-control" id="City" name="City" maxlength="30" placeholder="Enter City">
 					</div>
 				</div>
 				<div class="col-3">
 					<div class="form-group">
-						<label class="control-label" for="lastActivityLess">Last Activity <=</label>
-					  	<input type="text" class="form-control" id="lastActivityLess" name="lastActivityLess" placeholder="Enter Last Activity">
+						<label class="control-label" for="LastActivityDateLess">LastActivityDate <=</label>
+					  	<input type="text" class="datepicker form-control" id="LastActivityDateLess" name="LastActivityDateLess" data-provide="datepicker" placeholder="Enter Last Activity">
 					</div>
 				</div>
 				<div class="col-3">
 					<div class="form-group">
-						<label class="control-label" for="companySurveyScoreMore">Company Survey Score >=</label>
-					  	<input type="text" class="form-control" id="companySurveyScore" name="companySurveyScore" placeholder="Enter Company Survey Score">
+						<label class="control-label" for="SurveyCompanyRatingMore">Company Survey Score >=</label>
+					  	<input type="number" class="form-control" id="SurveyCompanyRatingMore" name="SurveyCompanyRatingMore" placeholder="Enter Company Survey Score">
 					</div>
 				</div>
 				<div class="col-3">
 					<div class="form-group">
-						<label class="control-label" for="companySurveyScoreLess">Company Survey Score <=</label>
-					  	<input type="text" class="form-control" id="companySurveyScoreLess" name="companySurveyScoreLess" placeholder="Enter Company Survey Score">
+						<label class="control-label" for="SurveyCompanyRatingLess">Company Survey Score <=</label>
+					  	<input type="number" class="form-control" id="SurveyCompanyRatingLess" name="SurveyCompanyRatingLess" placeholder="Enter Company Survey Score">
 					</div>
 				</div>
 			</div>
@@ -455,30 +429,39 @@
 			    <thead>
 			        <tr>
 			            <th>Company</th>
-			            <th>Parent Account</th>
+			            <th>City</th>
 			            <th>Territory</th>
 			            <th>Phone</th>
 			            <th>Web</th>
 			            <th>State</th>
-			            <th>Total Opportunity Amount</th>
+			            <th>isActive</th>
 			            <th>Last Activity</th>
 			            <th>Company Type</th>
 			        </tr>
 			    </thead>
 			    <tbody>
-			        <tr>
-			            <td>John</td>
-			            <td>Doe</td>
-			            <td>john@example.com</td>
-			            <td>john@example.com</td>
-			            <td>john@example.com</td>
-			            <td>john@example.com</td>
-			            <td>john@example.com</td>
-			            <td>john@example.com</td>
-			            <td>john@example.com</td>
-			        </tr>
+                @foreach($items as $item)
+                    <tr>
+                        <td>{{$item -> companyName}}</td>
+                        <td>{{$item -> city}}</td>
+                        <td>{{$item -> territoryID}}</td>
+                        <td>{{$item -> phone}}</td>
+                        <td>{{$item -> webAddress}}</td>
+                        <td>{{$item -> state}}</td>
+                        <td>{{$item -> isActive}}</td>
+                        <td>{{$item -> lastActivityDate}}</td>
+                        <td>{{$item -> companyType}}</td>
+                    </tr>
+                @endforeach
 			    </tbody>
 			</table>
 		</div>
+
+        <!-- Return to Landing Page -->
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-12">
+                <button type="button" class="btn btn-warning" onclick="toLanding();">Return</button>
+            </div>
+        </div>
 	</div>
 @endsection

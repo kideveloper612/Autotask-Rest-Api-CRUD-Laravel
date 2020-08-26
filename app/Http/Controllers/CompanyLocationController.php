@@ -2,42 +2,217 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\View\View;
 
 class CompanyLocationController extends Controller
 {
+    protected $BASE_URL = 'https://webservices16.autotask.net/ATServicesRest/V1.0/CompanyLocations';
+    protected $COMPANY_URL = 'https://webservices16.autotask.net/ATServicesRest/V1.0/Companies/';
+    protected $items = array();
+
+    /**
+     * Query using params
+     *
+     * @param $params
+     * @param null $url
+     * @return array
+     */
+    public function Query($url){
+        while (true) {
+            $curlResponse = json_decode($this->CURL_Request($url, "", "GET"));
+            if ($curlResponse === null) {
+                break;
+            }
+            foreach ($curlResponse->items as $append) {
+                array_push($this->items, $append);
+            }
+            if ($curlResponse->pageDetails->nextPageUrl === null) {
+                break;
+            } else {
+                $url = $curlResponse->pageDetails->nextPageUrl;
+            }
+        }
+
+        return $this->items;
+    }
+
+    /**
+     * Loop Request
+     *
+     * @param $initialURL
+     * @return array
+     */
+    public function companyLoop($initialURL) {
+        $params = array(
+            'search' => '{"MaxRecords":50, "filter":[{"op": "or", "items": [{"op":"eq", "field": "isActive", "value": "true"}, {"op": "noteq", "field": "isActive", "value": "false"}]}]}'
+        );
+        $url = $initialURL."/query?".http_build_query($params);
+
+        return $this->Query($url);
+    }
+
+    /**
+     * Query total records.
+     *
+     * @return array
+     */
+    public function initialQuery() {
+        return $this->companyLoop($this->BASE_URL);
+    }
+
+    /**
+     * Company List Query
+     *
+     * @return array
+     * */
+    public function companyQuery() {
+        return $this->companyLoop($this->COMPANY_URL);
+    }
+
+    /**
+     * Search using params
+     *
+     * @return void
+     * */
+    public function searchQuery($requestData) {
+        $searchArray = array(
+            array(
+                "op" => "contains",
+                "field" => "Name",
+                "value" => $requestData['Name']
+            ),
+            array(
+                "op" => "contains",
+                "field" => "City",
+                "value" => $requestData['City']
+            ),
+            array(
+                "op" => "eq",
+                "field" => "IsTaxExempt",
+                "value" => $requestData['IsTaxExempt']
+            ),
+            array(
+                "op" => "eq",
+                "field" => "isPrimary",
+                "value" => $requestData['isPrimary']
+            ),
+            array(
+                "op" => "contains",
+                "field" => "State",
+                "value" => $requestData['State']
+            ),
+            array(
+                "op" => "contains",
+                "field" => "PostalCode",
+                "value" => $requestData['PostalCode']
+            ),
+            array(
+                "op" => "contains",
+                "field" => "Phone",
+                "value" => $requestData['Phone']
+            ),
+            array(
+                "op" => "eq",
+                "field" => "isActive",
+                "value" => $requestData['isActive']
+            )
+        );
+
+        $filter = array();
+        foreach ($searchArray as $key => $value) {
+            if ($value['value'] !== null) {
+                array_push($filter, $value);
+            }
+        }
+
+        if (empty($filter)) {
+            $this->initialQuery();
+        } else {
+            $searchParam = array(
+                'search' => json_encode(array(
+                    'MaxRecords' => 50,
+                    'filter' => $filter
+                ))
+            );
+            $url = $this->BASE_URL."/query?".http_build_query($searchParam);
+            $this->Query($url);
+        }
+    }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Application|Factory|Response|View
      */
-    public function index()
+    public function index(Request $request)
     {
         //CompanyLocation Landing Control
-        return view('location/location_query');
+        $requestArray = $request->all();
+        if (empty($requestArray) && empty($this->items)) {
+            $this->initialQuery();
+        } else if (empty($this->items)) {
+            $this->searchQuery($requestArray);
+        }
+
+        return view('location/location_query') -> with('items', $this->items);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|Response|View
      */
     public function create()
     {
         //CompanyLocation Create Control
-        return view('location/location_create');
+        $companyData = array();
+        foreach ($this->companyQuery() as $item) {
+            array_push($companyData, array($item->id, $item->companyName));
+        }
+        return view('location/location_create') -> with('companyData', $companyData);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
         //Store New CompanyLocation Control
-        $data = $request->all();
+        $locationData = json_encode(
+            array(
+                "id" => '0',
+                "Address1" => $request->get('Address1'),
+                "Address2" => $request->get('Address2'),
+                "AlternatePhone1" => $request->get('AlternatePhone1'),
+                "AlternatePhone2" => $request->get('AlternatePhone2'),
+                "City" => $request->get('City'),
+                "CompanyID" => $request->get('CompanyID'),
+                "CountryID" => $request->get('CountryID'),
+                "Description" => $request->get('Description'),
+                "Fax" => $request->get('Fax'),
+                "Id" => $request->get('Id'),
+                "IsActive" => $request->get('IsActive'),
+                "IsPrimary" => $request->get('IsPrimary'),
+                "IsTaxExempt" => $request->get('IsTaxExempt'),
+                "Name" => $request->get('Name'),
+                "OverrideCompanyTaxSettings" => $request->get('OverrideCompanyTaxSettings'),
+                "Phone" => $request->get('Phone'),
+                "PostalCode" => $request->get('PostalCode'),
+                "RoundtripDistance" => $request->get('RoundtripDistance'),
+                "State" => $request->get('State'),
+                "TaxRegionID" => $request->get('TaxRegionID')
+            )
+        );
+
+        $this->CURL_Request($this->BASE_URL, $locationData, 'POST');
         return $this->index();
     }
 
@@ -45,32 +220,38 @@ class CompanyLocationController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|Response|View
      */
     public function show($id)
     {
         //CompanyLocation Update/Delete Control
-        return view('location/location_update');
+        if(empty($this->items)) {
+            $this->initialQuery();
+        }
+
+        return view('location/location_update') -> with('items', $this->items);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|Response|View
      */
     public function edit($id)
     {
         //Company Edit Control for updating
-        return view('location/location_update') -> with(array('updateData'=>'test'));
+        $editRecord = $this->getEditRecord($this->BASE_URL, $id);
+        $companyIdData = $this->companyQuery();
+        return view('location/location_update') -> with(array('editRecord'=>$editRecord, 'companyIdData'=>$companyIdData));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -82,12 +263,12 @@ class CompanyLocationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return void
      */
     public function destroy($id)
     {
         //Delete CompanyLocation
-        
+
     }
 }

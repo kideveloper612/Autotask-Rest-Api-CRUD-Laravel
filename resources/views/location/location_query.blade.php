@@ -16,13 +16,13 @@
 				<div class="col-3">
 					<div class="form-group">
 						<label class="control-label" for="Name">Name</label>
-					  	<input type="text" class="form-control" id="Name" name="Name" placeholder="Enter Name">
+					  	<input type="text" class="form-control" id="Name" name="Name" maxlength="100" placeholder="Enter Name">
 					</div>
 				</div>
 				<div class="col-3">
 					<div class="form-group">
 						<label class="control-label" for="City">City</label>
-					  	<input type="text" class="form-control" id="City" name="City" placeholder="Enter City">
+					  	<input type="text" class="form-control" id="City" name="City" maxlength="50" placeholder="Enter City">
 					</div>
 				</div>
 				<div class="col-3">
@@ -49,26 +49,26 @@
 			<div class="row">
 				<div class="col-3">
 					<div class="form-group">
-						<label class="control-label" for="City">City</label>
-					  	<input type="text" class="form-control" id="City" name="City" placeholder="Enter Last Name">
+						<label class="control-label" for="State">State</label>
+					  	<input type="text" class="form-control" id="State" name="State" maxlength="25" placeholder="Enter State">
 					</div>
 				</div>
 				<div class="col-3">
 					<div class="form-group">
 						<label class="control-label" for="PostalCode">PostalCode</label>
-					  	<input type="text" class="form-control" id="PostalCode" name="PostalCode" placeholder="Enter PostalCode">
+					  	<input type="text" class="form-control" id="PostalCode" name="PostalCode" maxlength="20" placeholder="Enter PostalCode">
 					</div>
 				</div>
 				<div class="col-3">
 					<div class="form-group">
-						<label class="control-label" for="phone">Phone</label>
-					  	<input type="text" class="form-control" id="phone" name="phone" placeholder="Enter Phone">
+						<label class="control-label" for="Phone">Phone</label>
+					  	<input type="text" class="form-control" id="Phone" name="Phone" maxlength="25" placeholder="Enter Phone">
 					</div>
 				</div>
 				<div class="col-3">
 					<div class="form-group">
-						<label class="control-label" for="active">Active</label>
-						<select class="form-control" id="active" name="active">
+						<label class="control-label" for="isActive">isActive</label>
+						<select class="form-control" id="isActive" name="isActive">
 							<option value=""></option>
 							<option value="True" title="Active" selected="selected">Active</option>
 							<option value="False" title="Inactive">Inactive</option>
@@ -77,5 +77,46 @@
 				</div>
 			</div>
 		</form>
+
+        <!-- Show CompanyLocations -->
+        <div class="table-responsive mt-4">
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>Company Location</th>
+                    <th>Company</th>
+                    <th>City</th>
+                    <th>Phone</th>
+                    <th>PostalCode</th>
+                    <th>State</th>
+                    <th>isActive</th>
+                    <th>isPrimary</th>
+                    <th>isTaxExempt</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($items as $item)
+                    <tr>
+                        <td>{{$item -> name}}</td>
+                        <td>{{$item -> companyID}}</td>
+                        <td>{{$item -> city}}</td>
+                        <td>{{$item -> phone}}</td>
+                        <td>{{$item -> postalCode}}</td>
+                        <td>{{$item -> state}}</td>
+                        <td>{{$item -> isActive}}</td>
+                        <td>{{$item -> isPrimary}}</td>
+                        <td>{{$item -> isTaxExempt}}</td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Return to Landing Page -->
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-12">
+                <button type="button" class="btn btn-warning" onclick="toLanding();">Return</button>
+            </div>
+        </div>
 	</div>
 @endsection

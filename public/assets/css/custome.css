@@ -1,5 +1,17 @@
 
 /* Buttons on table for Update, Delete  */
-tbody > tr > td:last-child {
+
+tbody > tr > td:last-child, thead > tr > th:last-child {
+	text-align: center;
+}
+
+tbody > tr > td.ud {
+	width: 100%;
 	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.page-content label > span {
+    color: red;
 }
