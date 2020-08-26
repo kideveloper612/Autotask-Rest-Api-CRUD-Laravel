@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Routing\Redirector;
 use Illuminate\View\View;
 use voku\helper\ASCII;
 
@@ -284,7 +286,7 @@ class CompanyController extends Controller
      *
      * @param Request $request
      * @param  int  $id
-     * @return Response
+     * @return Application|RedirectResponse|Response|Redirector
      */
     public function update(Request $request, $id)
     {
@@ -349,7 +351,7 @@ class CompanyController extends Controller
             )
         );
         $this->CURL_Request($this->BASE_URL, $updateData, 'PUT');
-        return $this->show();
+        return redirect('company/company_update');
     }
 
     /**

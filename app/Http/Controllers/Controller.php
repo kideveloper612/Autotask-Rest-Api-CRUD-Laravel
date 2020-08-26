@@ -49,9 +49,6 @@ class Controller extends BaseController
 		$result = curl_exec($ch);
 		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-//		echo $httpCode;
-//		dd($result);
-
 		if (curl_error($ch)) {
 			print_r(curl_error($ch));
 		}
